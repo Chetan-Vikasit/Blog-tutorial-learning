@@ -1,106 +1,65 @@
-import { log } from 'console';
-import React from 'react'
-import { useEffect,useState } from 'react'
-import userData from "./userData";
+import React, { useEffect, useState } from "react";
+import Form from "./Form.tsx";
 const API = "https://api.escuelajs.co/api/v1/products";
 
-
-export default function overview() 
-{ 
-  const [users,setUsers]= useState([]);
-  const fetchUser = async(url: RequestInfo | URL)=>{
+export default function Overview() {
+  const [users, setUsers] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const fetchUser = async (url: RequestInfo | URL) => {
     try {
       const res = await fetch(url);
       const data = await res.json();
-      console.log("data",data);
-      if(data.length>0)
-      {
-        setUsers(data);
-      }
-      
-      
+      setUsers(data);
     } catch (error) {
       console.log(error);
     }
-    
-  }
+  };
+  
   useEffect(() => {
     fetchUser(API);
-  },[])
-
-  return ( 
-  <div className='grid grid-cols-1 w-3/2 pb-12 bg-gray-100 place-items-center ...'> 
-    <h1 className='text-2xl pb-4 pt-4 font-mono text-black '>PRODUCTS</h1>
-        <table className="table-auto border w-1/2 text-center place-items-center text-white">
-            <thead className=' text-xl pb-4 h-14 bg-gray-700 align-middle ' > 
-             <tr>
+  }, []);
+  const openForm = () => {
+    setShowForm(true);
+  };
+  return (
+    <>
+      {/* // < className="lg:w-3/2 ... grid grid-cols-1 place-items-center bg-gray-900 lg:pb-12 pb-4"> */}
+      <h1 className="pb-4 pt-4 text-center font-mono text-2xl text-black ">
+        PRODUCTS
+      </h1>
+      <div className="grid grid-cols-1 place-items-center">
+        <table className="w-[1/2] table-auto text-center text-white lg:w-[3/2] ">
+          <thead className="h-14 bg-gray-700 pb-4 align-middle text-xl ">
+            <tr>
               <th>Id</th>
               <th>Title</th>
               <th>Price</th>
               <th>Description</th>
-             </tr>
-             </thead>
-            <tbody>
-              {/* <userData users = {users} /> */}
-             {
-               users.map((item:any) =>(
-        
-        //  const {id,title,price,description} = item;
-          <tr className='bg-gray-400 h-12 align-middle border' key={item.id}> 
-             <td>{item.id}</td>
-             <td>{item.title}</td>
-             <td>{item.price}</td>
-             <td>{item.description}</td>
-          </tr>
-        
-        ))
-    }
-            </tbody>
-            
-            {/* <tr className='bg-gray-400 h-12 align-middle border' > 
-            <td>9876</td>
-            <td>Car</td>
-            <td>10000</td>
-            <td>Very fast driving car</td>
             </tr>
-            <tr className='bg-gray-400 h-12 align-middle border'> 
-            <td>9877</td>
-            <td>Bus</td>
-            <td>90000</td>
-            <td>Very fast driving car</td>
-            </tr>
-            <tr className='bg-gray-400 h-12 align-middle border'> 
-            <td>9877</td>
-            <td>Truck</td>
-            <td>100000</td>
-            <td>Very fast driving car</td>
-            </tr>
-            <tr className='bg-gray-400 h-12 align-middle border'> 
-            <td>9877</td>
-            <td>Truck</td>
-            <td>100000</td>
-            <td>Very fast driving car</td>
-            </tr>
-            <tr className='bg-gray-400 h-12 align-middle border'> 
-            <td>9877</td>
-            <td>Truck</td>
-            <td>100000</td>
-            <td>Very fast driving car</td>
-            </tr>
-            <tr className='bg-gray-400 h-12 align-middle border'> 
-            <td>9877</td>
-            <td>Truck</td>
-            <td>100000</td> 
-            <td>Very fast driving car</td>
-            </tr>
-            <tr className='bg-gray-400 h-12 align-middle border'> 
-            <td>9877</td>
-            <td>Truck</td>
-            <td>100000</td>
-            <td>Very fast driving car</td>
-            </tr> */}
+          </thead>
+          <tbody>
+            {users.slice(0, 8).map((item: any) => (
+              <tr
+                className="h-12 border bg-gray-400 align-middle"
+                key={item.id}
+              >
+                <td>{item.id}</td>
+                <td>{item.title}</td>
+                <td>{item.price}</td>
+                <td>{item.description}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-    </div>
-  
-  )
+        <div className="pt-4">
+          <button className="h-12 w-36 rounded-lg bg-sky-200 font-famiy-sanrif" onClick={openForm}>
+            Add Products
+          </button>
+          
+
+        </div>
+      </div> {showForm && <Form />}
+    </>
+   
+  );
 }
