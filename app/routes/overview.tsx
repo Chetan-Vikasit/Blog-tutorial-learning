@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Form from "./Form.tsx";
+import Form from "./Form";
 const API = "https://api.escuelajs.co/api/v1/products";
 
-export default function Overview() {
-  const [users, setUsers] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const fetchUser = async (url: RequestInfo | URL) => {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setUsers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export default function Overview() 
+{ 
+//   const [users, setUsers] = useState([]);
+//   const [showForm, setShowForm] = useState(false);
+//   const fetchUser = async (url: RequestInfo | URL) => {
+//     try {
+//       const res = await fetch(url);
+//       const data = await res.json();
+//       setUsers(data);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
   
-  useEffect(() => {
-    fetchUser(API);
-  }, []);
-  const openForm = () => {
-    setShowForm(true);
-  };
+//   useEffect(() => {
+//     fetchUser(API);
+//   }, []);
+//   const openForm = () => {
+//     setShowForm(true);
+//   };
   return (
     <>
       {/* // < className="lg:w-3/2 ... grid grid-cols-1 place-items-center bg-gray-900 lg:pb-12 pb-4"> */}
