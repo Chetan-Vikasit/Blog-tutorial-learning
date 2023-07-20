@@ -1,17 +1,11 @@
 import React from "react";
-import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { ActionFunction, json } from "@remix-run/node";
+import { Link, useActionData, useLoaderData } from "@remix-run/react";
 import { LoaderFunction } from "@remix-run/node";
+import { request } from "https";
+import Form from "./Form";
 
 
-// type posts =
-// {
-//     id:Number,
-//     title:String,
-//     price:Number,
-//     description:String
-    
-// }
 const API = "https://api.escuelajs.co/api/v1/products";
 export const loader: LoaderFunction = async () => {
     const res = await fetch(API);
@@ -20,7 +14,11 @@ export const loader: LoaderFunction = async () => {
     return json({ data});
 };
 
-
+export const action: ActionFunction =async () => {
+  let FormData = useActionData<typeof request>() ;
+  let values=Object.fromEntries(FormData);
+  
+}
 
 
 
@@ -32,8 +30,18 @@ export default function Tabel()
   
   return (
     <> 
-    <div>
+    <div className="flex flex-row justify-between align-middle">
+         <div className="text-2xl px-10 py-2 mt-2">
+              <h1>Products</h1>
+         </div>
+         <div className="py-2">
+          <Link to="/Form"> 
+          <button  className="text-lg bg-indigo-200 py-4 align-middle px-4 mx-8 rounded-full ... ">Add Product</button>
 
+          </Link>
+          {/* <button  className="text-lg bg-indigo-200 py-4 align-middle px-4 mx-8 rounded-full ... ">Add Product</button> */}
+          
+         </div>
     </div>
     <div className="px-6">
       <table className="w-full table-auto text-center text-white   ">
@@ -47,7 +55,7 @@ export default function Tabel()
         </thead>
         <tbody className="border ">
           {data.slice(0,12).map((item: any) => (
-            <tr className="h-12 border bg-gray-100 align-middle text-black border" key={item.id}>
+            <tr className="h-12 border align-middle text-black border odd:bg-gray-200" key={item.id}>
               <td >{item.id}</td>
               <td>{item.title}</td>
               <td>{item.price}</td>

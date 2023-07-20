@@ -4,21 +4,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Form() {
-  const [startDate, setStartDate] = useState(null);
-  const [name, setname] = useState("");
-  const [lan, setlan] = useState("");
+  const [price, setPrice] = useState("");
+  const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
 
-  function onChangedate(date: any) {
-    setStartDate(date);
-  }
 
   function changeHanderButton(event: any) {
     event.preventDefault();
-    console.log(
-      `names: ${name}`,
-      `Date of Birth:${startDate}`,
-      `languages:${lan}`
+    console.log( `Id: ${id}`, `Title:${title}`,`Price:${price}`,
     );
+    // JSON.stringify()
   }
 
   return (
@@ -34,16 +30,16 @@ export default function Form() {
           onSubmit={changeHanderButton}
         >
           <div className="grid gap-2">
-            <label className="text-lg " htmlFor="Name">
+            <label className="text-lg " htmlFor="Id">
               Id
             </label>
             <input
               className="w-80 rounded-lg border py-2 outline-none "
               type="text"
-              name="Name"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-              id="Name"
+              name="Id"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              id="id"
               placeholder="Your Id"
               autoComplete="off"
             />
@@ -52,17 +48,17 @@ export default function Form() {
             </p>
           </div>
           <div className="grid gap-2">
-            <label className="text-lg " htmlFor="Name">
+            <label className="text-lg " htmlFor="Title">
               Title
             </label>
             <input
               className="w-80 rounded-lg border py-2 outline-none"
               type="text"
-              name="Name"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-              id="Name"
-              placeholder="Your Name"
+              name="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              id="Title"
+              placeholder="Your Title"
               autoComplete="off"
             />
             <p className="text-l pb-6 text-gray-500">
@@ -70,17 +66,17 @@ export default function Form() {
             </p>
           </div>
           <div className="grid gap-2">
-            <label className="text-lg " htmlFor="Name">
+            <label className="text-lg " htmlFor="Price">
               Price
             </label>
             <input
               className="w-80 rounded-lg border py-2 outline-none"
               type="text"
-              name="Name"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-              id="Name"
-              placeholder="Your Name"
+              name="Price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              id="Price"
+              placeholder="Your Price"
               autoComplete="off"
             />
             <p className="text-l pb-6 text-gray-500">
@@ -88,16 +84,16 @@ export default function Form() {
             </p>
           </div>
            <div className="grid gap-2">
-            <label className="text-lg " htmlFor="Name">
+            <label className="text-lg " htmlFor="Desc">
               Description
             </label>
             <input
               className="w-80 rounded-lg border py-2 outline-none"
               type="text"
-              name="Name"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-              id="Name"
+              name="Desc"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              id="Desc"
               placeholder="Your Name"
               autoComplete="off"
             />
