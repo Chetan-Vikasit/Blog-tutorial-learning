@@ -14,11 +14,11 @@ export const loader: LoaderFunction = async () => {
     return json({ data});
 };
 
-export const action: ActionFunction =async () => {
-  let FormData = useActionData<typeof request>() ;
-  let values=Object.fromEntries(FormData);
-  
-}
+// export const action: ActionFunction =async () => {
+//   let FormData = useActionData<typeof request>() ;
+//   let values=Object.fromEntries(FormData);
+   
+// }
 
 
 
@@ -54,7 +54,7 @@ export default function Tabel()
           </tr>
         </thead>
         <tbody className="border ">
-          {data.slice(0,12).map((item: any) => (
+          {data.slice(216,230).map((item: any) => (
             <tr className="h-12 border align-middle text-black border odd:bg-gray-200" key={item.id}>
               <td >{item.id}</td>
               <td>{item.title}</td>
