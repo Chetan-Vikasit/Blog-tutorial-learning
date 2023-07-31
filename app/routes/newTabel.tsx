@@ -1,50 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { ActionFunction, LoaderArgs, json } from "@remix-run/node";
 import { Link, useActionData, useLoaderData } from "@remix-run/react";
 import { LoaderFunction } from "@remix-run/node";
-import { request } from "https";
-import Form from "./Form";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const API = "https://api.escuelajs.co/api/v1/products";
+
 export const loader: LoaderFunction = async ({ params }: LoaderArgs) => {
   const { productid } = params;
   console.log(params);
-  console.log(productid, "niuiuic");
   const res = await fetch(API);
   const data = await res.json();
-  // console.log(data);
   return json({ data });
 };
 
-// export const action: ActionFunction =async () => {
-//   let FormData = useActionData<typeof request>() ;
-//   let values=Object.fromEntries(FormData);
-
-// }zv
-
 export default function Tabel() {
+  const [spin, setSpin] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 13;
+
   const { data } = useLoaderData<typeof loader>();
+
   function deleteButton(value: any) {
+    setSpin(true); // Show the spinner
+
     axios
       .delete(`https://api.escuelajs.co/api/v1/products/${value}`)
       .then((response) => {
         console.log(response.data);
-      })
-      .then((response) => {
-        // console.log(response);
+        setSpin(false); // Hide the spinner
+
         window.location.replace("/newTabel");
       })
       .catch((error) => {
         console.log(error);
+        setSpin(false); // Hide the spinner in case of an error
       });
   }
 
+  // Calculate the index range for the current page
+  const lastIndex = currentPage * itemsPerPage;
+  const firstIndex = lastIndex - itemsPerPage;
+  const currentItems = data.slice(firstIndex, lastIndex);
+
   return (
     <>
+      {/* Spinner Overlay */}
+      {spin && <div className="spinner-overlay" />}
+      {/* Spinner */}
+      {spin && (
+        <div className="spinner-container">
+          <ClipLoader color="#ffffff" />
+        </div>
+      )}
+
       <div className="flex flex-row justify-between align-middle">
         <div className="mt-2 px-10 py-2 text-2xl md:w-1/2 md:text-xl">
-          <h1>Products Tabel </h1>
+          <h1>Products Table</h1>
         </div>
         <div className="mx-auto max-w-md ">
           <div className="relative mb-2 mt-2 flex h-12 w-full items-center overflow-hidden rounded-lg border bg-white focus-within:shadow-lg">
@@ -57,16 +70,15 @@ export default function Tabel() {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
             </div>
-
             <input
-              className="peer h-full w-full pr-2 text-sm text-gray-900 outline-none "
+              className="peer h-full w-full pr-2 text-sm text-gray-900 outline-none"
               type="text"
               id="search"
               placeholder="Search something...."
@@ -79,11 +91,11 @@ export default function Tabel() {
               Add Product
             </button>{" "}
           </Link>
-          {/* <button  className="text-lg bg-indigo-200 py-4 align-middle px-4 mx-8 rounded-full ... ">Add Product</button> */}
         </div>
       </div>
+
       <div className="px-10">
-        <table className="w-full table-auto text-center text-white   ">
+        <table className="w-full table-auto text-center text-white">
           <thead className="h-14 border bg-gray-500 pb-4 align-middle text-xl">
             <tr>
               <th className="px-6">Id</th>
@@ -94,8 +106,9 @@ export default function Tabel() {
               <th className="px-6 text-left"></th>
             </tr>
           </thead>
-          <tbody className="border ">
-            {data.slice(1, 12).map((item: any) => (
+          <tbody className="border">
+            {/* Display the current items */}
+            {currentItems.map((item: any) => (
               <tr
                 className="h-12 border border align-middle text-black odd:bg-gray-200"
                 key={item.id}
@@ -106,7 +119,7 @@ export default function Tabel() {
                 <td className="px-12 text-left">{item.description}</td>
                 <td>
                   <button
-                    className="... rounded-lg bg-red-300  px-4 py-2 text-left align-middle text-sm hover:bg-red-500 "
+                    className="... rounded-lg bg-red-300  px-4 py-2 text-left align-middle text-sm hover:bg-red-500"
                     value={item.id}
                     onClick={() => deleteButton(item.id)}
                   >
@@ -114,14 +127,36 @@ export default function Tabel() {
                   </button>
                 </td>
                 <td>
-                  <button className="  ... ml-4 mr-2 rounded-lg bg-green-300  px-4 py-2 text-right align-middle text-sm hover:bg-green-500 ">
-                    Update
-                  </button>
+                  <Link to={`/updateForm/${item.id}`}>
+                    <button
+                      className="... ml-4 mr-2 rounded-lg bg-green-300  px-4 py-2 text-right align-middle text-sm hover:bg-green-500"
+                    >
+                      Update
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Buttons */}
+      <div className="flex justify-center mt-4">
+        <button
+          className="px-4 py-2 mx-2 rounded-lg bg-blue-400 text-white hover:bg-blue-500"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+        >
+          Prev
+        </button>
+        <button
+          className="px-4 py-2 mx-2 rounded-lg bg-blue-400 text-white hover:bg-blue-500"
+          disabled={currentItems.length < itemsPerPage}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+        >
+          Next
+        </button>
       </div>
     </>
   );

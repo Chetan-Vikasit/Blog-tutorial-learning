@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Form() {
   const [price, setPrice] = useState("");
@@ -8,6 +9,7 @@ export default function Form() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [spin, setSpin] = useState(false);
 
   function imagesHandel(e: any) {
     const imgurl = e.target.value;
@@ -15,6 +17,8 @@ export default function Form() {
   }
 
   function changeHanderButton(e: any) {
+  
+    setSpin(true); // Hide the spinner
     e.preventDefault(e);
     const CategoryId = categoryId;
     const Title = title;
@@ -30,14 +34,27 @@ export default function Form() {
       })
       .then((response) => {
         console.log(response);
+        setSpin(false); // Hide the spinner
+
         window.location.replace("/newTabel");
       })
       .catch((error) => {
+        setSpin(false); // Hide the spinner
+
         console.log(error);
       });
   }
 
   return (
+    <>
+     {/* Spinner Overlay */} 
+     {spin && <div className="spinner-overlay" />}
+      {/* Spinner */}
+      {spin && (
+        <div className="spinner-container">
+          <ClipLoader color="#ffffff" />
+        </div>
+      )}
     <div className="... flex flex-row px-2">
       <div className="formContainer bg-white-100  w-full justify-center rounded-lg px-2">
         <h1 className="px-2 py-0.5 pt-6 text-2xl">Update Products</h1>
@@ -138,56 +155,21 @@ export default function Form() {
             <p className="text-l px-2 pb-4 text-gray-500">Add Images URL.</p>
           </div>
 
-          <div className="pb-6">
+          <div className="pb-6 ">
             {" "}
             <button
               className="w-40 rounded-lg border bg-black px-2 py-2 pb-2 text-white "
               type="submit"
               onChange={changeHanderButton}
             >
-              Update Products
+              Add Products
             </button>{" "}
           </div>
         </form>
       </div>
     </div>
+    </>
   );
 }
-//  function changeHanderName(event:any) {
-//     const names =(event.target.value)
-//     setname(names);
-//     console.log(names);
-//   }
 
-//   function changeHanderLanguage(event:any) {
-//     const lanx =(event.target.value)
-//     setlan(lanx);
-//     console.log(lanx);
-//   }
-{
-  /* <svg  
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="mx-6 h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                />
-              </svg> */
-}
-// const [user,setUser] = useState({
-//   name:"",DateOfBirth:null,Languages:""
-// });
-// let name,value;
-// const handleInputs=(event:any) =>
-// {
-//   const name =event.target.name;
-//   const  value =event.target.value;
 
-//    setUser({...user,[name]:value});
-// }
