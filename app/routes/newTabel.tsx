@@ -56,10 +56,10 @@ export default function Tabel() {
       )}
 
       <div className="flex flex-row justify-between align-middle">
-        <div className="mt-2 px-10 py-2 text-2xl md:w-1/2 md:text-xl">
+        <div className="mt-2 px-10 py-2 text-2xl md:w-1/2 text-xl lg:text-2xl">
           <h1>Products Table</h1>
         </div>
-        <div className="mx-auto max-w-md ">
+        {/* <div className="mx-auto max-w-md ">
           <div className="relative mb-2 mt-2 flex h-12 w-full items-center overflow-hidden rounded-lg border bg-white focus-within:shadow-lg">
             <div className="grid h-full w-12 place-items-center text-gray-300 ">
               <svg
@@ -84,39 +84,38 @@ export default function Tabel() {
               placeholder="Search something...."
             />
           </div>
-        </div>
+        </div> */}
         <div className="py-2">
           <Link to="/Form">
-            <button className=" ... mr-10 rounded-lg bg-indigo-400  px-4 py-2 align-middle text-base transition delay-150 duration-300 ease-in-out hover:bg-indigo-600 ">
+            <button className=" ... mr-10 rounded-lg bg-blue-400 px-4 py-2 align-middle text-white transition delay-150 duration-300 ease-in-out hover:bg-blue-500 md:36">
               Add Product
             </button>{" "}
           </Link>
         </div>
       </div>
 
-      <div className="px-10">
+      <div className="md:px-10 px-2">
         <table className="w-full table-auto text-center text-white">
           <thead className="h-14 border bg-gray-500 pb-4 align-middle text-xl">
             <tr>
               <th className="px-6">Id</th>
               <th>Title</th>
               <th>Price</th>
-              <th className="px-12 text-left">Description</th>
+              <th className="md:px-12 px-4 md:text-left">Description</th>
               <th className="px-6 text-left"></th>
               <th className="px-6 text-left"></th>
             </tr>
           </thead>
           <tbody className="border">
-            {/* Display the current items */}
             {currentItems.map((item: any) => (
               <tr
                 className="h-12 border border align-middle text-black odd:bg-gray-200"
                 key={item.id}
               >
                 <td>{item.id}</td>
-                <td>{item.title}</td>
+                <td className="text-container line-clamp-2">{item.title}</td>
                 <td>{item.price}</td>
-                <td className="px-12 text-left">{item.description}</td>
+                <td className="px-4 text-left text-container line-clamp-2">{item.description}...</td>
                 <td>
                   <button
                     className="... rounded-lg bg-red-300  px-4 py-2 text-left align-middle text-sm hover:bg-red-500"
@@ -140,8 +139,7 @@ export default function Tabel() {
           </tbody>
         </table>
       </div>
-
-      {/* Pagination Buttons */}
+      {/* Pagination */}
       <div className="flex justify-center mt-4">
         <button
           className="px-4 py-2 mx-2 rounded-lg bg-blue-400 text-white hover:bg-blue-500"
