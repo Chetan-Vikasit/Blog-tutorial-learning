@@ -1,28 +1,29 @@
 import React from "react";
 
-const FacebookPost = () => {
+const FacebookPost = (props: { profileImage: any; username: any; timestamp: any; postImage: any; postContent: any; }) => {
+  const { profileImage, username, timestamp, postImage, postContent } = props;
   return (
     <div className="mb-4 h-[25vw] w-[30vw] rounded-xl border border-gray-300 bg-white p-4 shadow-md">
       <div className="mb-2 flex items-center">
         <img
           className="mr-2 h-10 w-10 rounded-full"
-          src="https://moodoffdp.com/wp-content/uploads/2023/05/Single-Boy-DP-for-Whatsapp-1024x1024.jpg"
+          src={profileImage}
           alt="User's profile"
         />
         <div>
-          <p className="font-medium">John Doe</p>
-          <p className="text-sm text-gray-500">2 hours ago</p>
+          <p className="font-medium">{username}</p>
+          <p className="text-sm text-gray-500">{timestamp}</p>
         </div>
       </div>
 
       <div className="mt-4 ">
         <img
           className="h-72 w-[40vw]"
-          src="https://www.nature.com/immersive/d41586-022-04372-2/assets/FCYxD00tLr/tonga-sh-h-2560x1440.jpg"
+          src={postImage}
           alt="Post"
         />
         <p className="pt-1 text-gray-800">
-          This is the picture of moon and it is very close to earth
+        {postContent}
         </p>
       </div>
       <div className="mt-4 flex flex-row justify-between ">

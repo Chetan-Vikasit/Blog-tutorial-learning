@@ -4,6 +4,41 @@ import FacebookPost from "./FacebookPost";
 export default function facebookm() {
   const [selectedButton, setSelectedButton] = useState("home");
 
+  const mockPosts = [
+    {
+      id: 1,
+      profileImage: "https://moodoffdp.com/wp-content/uploads/2023/05/Single-Boy-DP-for-Whatsapp-1024x1024.jpg",
+      username: "John Doe",
+      timestamp: "2 hours ago",
+      postImage: "https://onebighappyphoto.com/wp-content/uploads/Creative-Newborn-Photography-6250-One-Big-Happy-Photo.jpg",
+      postContent: "This is the picture of the moon and it is very close to earth.",
+    },
+    {
+      id: 2,
+      profileImage: "https://shayariraja.com/wp-content/uploads/2023/06/girls-Dp-by-shayariraja-32-1024x1024.jpg",
+      username: "Jane Smith",
+      timestamp: "5 hours ago",
+      postImage: "https://iso.500px.com/wp-content/uploads/2015/09/lightpatter_cover.jpeg",
+      postContent: "Enjoying the beautiful sunset at the beach!",
+    },
+    {
+      id: 1,
+      profileImage: "https://moodoffdp.com/wp-content/uploads/2023/05/Single-Boy-DP-for-Whatsapp-1024x1024.jpg",
+      username: "John Doe",
+      timestamp: "2 hours ago",
+      postImage: "https://onebighappyphoto.com/wp-content/uploads/Creative-Newborn-Photography-6250-One-Big-Happy-Photo.jpg",
+      postContent: "This is the picture of the moon and it is very close to earth.",
+    },
+    {
+      id: 2,
+      profileImage: "https://shayariraja.com/wp-content/uploads/2023/06/girls-Dp-by-shayariraja-32-1024x1024.jpg",
+      username: "Jane Smith",
+      timestamp: "5 hours ago",
+      postImage: "https://iso.500px.com/wp-content/uploads/2015/09/lightpatter_cover.jpeg",
+      postContent: "Enjoying the beautiful sunset at the beach!",
+    },
+  ];
+
   return (
     <>
       <header className="fixed w-full bg-white p-4 px-5 shadow-xl z-50">
@@ -354,9 +389,18 @@ export default function facebookm() {
           </div>
           
       <div className="ml-[20vw] pt-20">  
-        <FacebookPost />
-        <FacebookPost />
-        <FacebookPost />
+ 
+      {mockPosts.map((post) => (
+        <FacebookPost
+          key={post.id}
+          profileImage={post.profileImage}
+          username={post.username}
+          timestamp={post.timestamp}
+          postImage={post.postImage}
+          postContent={post.postContent}
+        />
+      ))}
+  
         </div>
 
         </div>
