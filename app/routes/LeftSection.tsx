@@ -1,54 +1,9 @@
-import React, { useState } from "react";
-import FacebookPost from "./FacebookPost";
-import Header from "./Header"
-import RightHeader from "./RightHeader";
+import React from 'react'
 
-
-export default function facebookm() {
-  const [selectedButton, setSelectedButton] = useState("home");
-
-  const mockPosts = [
-    {
-      id: 1,
-      profileImage: "https://moodoffdp.com/wp-content/uploads/2023/05/Single-Boy-DP-for-Whatsapp-1024x1024.jpg",
-      username: "John Doe",
-      timestamp: "2 hours ago",
-      postImage: "https://onebighappyphoto.com/wp-content/uploads/Creative-Newborn-Photography-6250-One-Big-Happy-Photo.jpg",
-      postContent: "This is the picture of the moon and it is very close to earth.",
-    },
-    {
-      id: 2,
-      profileImage: "https://shayariraja.com/wp-content/uploads/2023/06/girls-Dp-by-shayariraja-32-1024x1024.jpg",
-      username: "Jane Smith",
-      timestamp: "5 hours ago",
-      postImage: "https://iso.500px.com/wp-content/uploads/2015/09/lightpatter_cover.jpeg",
-      postContent: "Enjoying the beautiful sunset at the beach!",
-    },
-    {
-      id: 1,
-      profileImage: "https://moodoffdp.com/wp-content/uploads/2023/05/Single-Boy-DP-for-Whatsapp-1024x1024.jpg",
-      username: "John Doe",
-      timestamp: "2 hours ago",
-      postImage: "https://onebighappyphoto.com/wp-content/uploads/Creative-Newborn-Photography-6250-One-Big-Happy-Photo.jpg",
-      postContent: "This is the picture of the moon and it is very close to earth.",
-    },
-    {
-      id: 2,
-      profileImage: "https://shayariraja.com/wp-content/uploads/2023/06/girls-Dp-by-shayariraja-32-1024x1024.jpg",
-      username: "Jane Smith",
-      timestamp: "5 hours ago",
-      postImage: "https://iso.500px.com/wp-content/uploads/2015/09/lightpatter_cover.jpeg",
-      postContent: "Enjoying the beautiful sunset at the beach!",
-    },
-  ];
-
+export function LeftSection() {
   return (
-    <>
-     <Header/>
-      <div>
-        <div className="flex">
-          <div className=""> 
-            <aside
+    
+             <aside
             id="logo-sidebar"
             className=" relative left-0 top-0 z-40 h-screen w-80 -translate-x-full border-r border-gray-200 bg-white pt-5 transition-transform dark:border-gray-700 dark:bg-gray-800 sm:translate-x-0"
             aria-label="Sidebar"
@@ -70,7 +25,7 @@ export default function facebookm() {
                       <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                       <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                     </svg>
-                    <span className="ml-3">Accounts</span>
+                    <span className="ml-3">Dashboard</span>
                   </a>
                 </li>
                 <li>
@@ -88,7 +43,7 @@ export default function facebookm() {
                       <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                     </svg>
                     <span className="ml-3 flex-1 whitespace-nowrap">
-                      Groups
+                      Kanban
                     </span>
                     <span className="ml-3 inline-flex items-center justify-center rounded-full bg-gray-100 px-2 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">
                       Pro
@@ -200,33 +155,8 @@ export default function facebookm() {
               </ul>
             </div>
           </aside>
-          </div>
-          
-      <div className="ml-[20vw] pt-4">  
- 
-      {mockPosts.map((post) => (
-        <FacebookPost
-          key={post.id}
-          profileImage={post.profileImage}
-          username={post.username}
-          timestamp={post.timestamp}
-          postImage={post.postImage}
-          postContent={post.postContent}
-        />
-      ))}
-  
-        </div>
-        <div>
-        <RightHeader/>
-        </div>
-
-        </div>
-            
-      </div>
    
-      <div className="absolute p-4 pt-80">
-    
-      </div>
-    </>
-  );
+  )
 }
+
+export default LeftSection;
